@@ -10,6 +10,6 @@
 1. Создайте легковестный тег `v0.0` на HEAD коммите и запуште его во все три добавленных на предыдущем этапе `upstream` ✅ 
 1. Аналогично создайте аннотированный тег `v0.1` ✅
 1. Перейдите на страницу просмотра тегов в гитхабе (и в других репозиториях) и посмотрите, чем отличаются созданные теги. 
-    * В гитхабе – https://github.com/YOUR_ACCOUNT/devops-netology/releases
-    * В гитлабе – https://gitlab.com/YOUR_ACCOUNT/devops-netology/-/tags
-    * В битбакете – список тегов расположен в выпадающем меню веток на отдельной вкладке. 
+    * В гитхабе – https://github.com/dborchev/devops-netology/tags
+    * В гитлабе – https://gitlab.com/askbow/devops-netology/-/tags
+    * В битбакете – https://bitbucket.org/dborchev/devops-netology/commits/tag/v0.1
