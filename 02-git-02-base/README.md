@@ -13,3 +13,18 @@
     * В гитхабе – https://github.com/dborchev/devops-netology/tags
     * В гитлабе – https://gitlab.com/askbow/devops-netology/-/tags
     * В битбакете – https://bitbucket.org/dborchev/devops-netology/commits/tag/v0.1
+
+## Задание №3 – Ветки 
+
+Давайте посмотрим, как будет выглядеть история коммитов при создании веток. 
+
+1. Переключитесь обратно на ветку `main`, которая должна быть связана с веткой `main` репозитория на `github` ✅
+2. Посмотрите лог коммитов и найдите хеш коммита с названием `Prepare to delete and move`, который был создан в пределах предыдущего домашнего задания. 
+   + `4cb4477  Prepare to delete and move`
+3. Выполните `git checkout` по хешу найденного коммита ✅
+4. Создайте новую ветку `fix` базируясь на этом коммите `git switch -c fix`✅
+5. Отправьте новую ветку в репозиторий на гитхабе `git push -u origin fix`✅
+6. Посмотрите, как визуально выглядит ваша схема коммитов: https://github.com/dborchev/devops-netology/network ✅
+7. Теперь измените содержание файла `README.md`, добавив новую строчку✅
+8. Отправьте изменения в репозиторий и посмотрите, как изменится схема на странице https://github.com/dborchev/devops-netology/network  ✅
+и как изменится вывод команды `git log`✅
