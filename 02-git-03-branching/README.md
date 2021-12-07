@@ -18,3 +18,11 @@ https://github.com/netology-code/sysadm-homeworks/blob/devsys10/02-git-03-branch
 1. Вернитесь в ветку `main`.✅
 2. Для этого изменим содержимое файла `rebase.sh`✅
 3. Отправляем измененную ветку `main` в репозиторий.✅
+
+#### Подготовка файла rebase.sh.
+1. найдем хэш коммита `prepare for merge and rebase` и выполним `git checkout` на него ✅
+2. Создадим ветку `git-rebase` основываясь на текущем коммите. ✅
+3. И изменим содержимое файла `rebase.sh`✅
+4. Отправим эти изменения в ветку `git-rebase`, с комментарием `git-rebase 1`.✅
+5. И сделаем еще один коммит `git-rebase 2` с пушем заменив `echo "Parameter: $param"` 
+на `echo "Next parameter: $param"`. ✅
