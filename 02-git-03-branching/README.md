@@ -29,3 +29,9 @@ https://github.com/netology-code/sysadm-homeworks/blob/devsys10/02-git-03-branch
 
 #### Merge
 Сливаем ветку `git-merge` в main и отправляем изменения в репозиторий ✅
+
+#### Rebase
+1. Переключаемся на ветку `git-rebase` и выполняем `git rebase -i main`.✅
+2. разрешим конфликты ✅
+3. запушим ✅
+4. смержим `git-merge` в `main` ✅
