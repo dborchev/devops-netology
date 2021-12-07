@@ -26,3 +26,6 @@ https://github.com/netology-code/sysadm-homeworks/blob/devsys10/02-git-03-branch
 4. Отправим эти изменения в ветку `git-rebase`, с комментарием `git-rebase 1`.✅
 5. И сделаем еще один коммит `git-rebase 2` с пушем заменив `echo "Parameter: $param"` 
 на `echo "Next parameter: $param"`. ✅
+
+#### Merge
+Сливаем ветку `git-merge` в main и отправляем изменения в репозиторий ✅
