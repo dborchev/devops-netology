@@ -29,4 +29,7 @@
    > Since cd affects the current shell execution environment, it is
        always provided as a shell regular built-in.
    - поскольку команда влияет на текущее окружение, она должна быть встроенной; дочерние процессы не могут влиять на окружение родителей
+2. Какая альтернатива без pipe команде `grep <some_string> <some_file> | wc -l`?
+   1. можно использовать параметр `-c`: `grep -c <some_string> <some_file>`
+   2. другой популярной ошибкой с пайпами является `cat <some_file> | grep <some_string>`
 
