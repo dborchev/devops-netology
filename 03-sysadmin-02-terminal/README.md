@@ -32,4 +32,10 @@
 2. Какая альтернатива без pipe команде `grep <some_string> <some_file> | wc -l`?
    1. можно использовать параметр `-c`: `grep -c <some_string> <some_file>`
    2. другой популярной ошибкой с пайпами является `cat <some_file> | grep <some_string>`
+3. Какой процесс с PID `1` является родителем для всех процессов в вашей виртуальной машине Ubuntu 20.04?
+   1. `init`:
+    ```bash
+    vagrant@vagrant:~$ ps aux | grep -E '^[a-z]+\s+1\s+'
+    root           1  0.0  1.1 101804 11264 ?        Ss   06:08   0:01 /sbin/init
+    ```
 
