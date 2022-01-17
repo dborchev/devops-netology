@@ -77,5 +77,17 @@
    ```bash
    ls > /proc/$PID/fd/1
    ```
-
+7. Выполните команду `bash 5>&1`. К чему она приведет? Что будет, если вы выполните `echo netology > /proc/$$/fd/5`? Почему так происходит? 
+   1. `bash 5>&1` направляет файловый дескриптор 5 нового процесса в stdout текущего
+   2. `echo netology > /proc/$$/fd/5` направляет в этот файловый дескриптор вывод `echo`, предыдущая команда возвращает его в наш stdout, в результате мы видим указанную строку у нас:
+   ```bash
+    vagrant@vagrant:~$ bash 5>&1
+    vagrant@vagrant:~$ ps aux | grep bash
+    vagrant     1137  0.0  0.4  10100  4264 pts/0    Ss   06:08   0:00 -bash
+    vagrant     1367  0.0  0.3   9572  3340 pts/0    T    07:06   0:00 bash
+    vagrant     1371  0.0  0.3   9836  4012 pts/0    S    07:11   0:00 bash
+    vagrant     1378  0.0  0.0   9032   736 pts/0    S+   07:12   0:00 grep --color=auto bash
+    vagrant@vagrant:~$ echo netology > /proc/1371/fd/5
+    netology
+    ```
 
