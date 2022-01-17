@@ -40,4 +40,32 @@
     ```
 4. Как будет выглядеть команда, которая перенаправит вывод stderr `ls` на другую сессию терминала?
    1. `ls 2>/dev/pts/42`, где `pts/42` - идентификатор целевой сессии в выводе `who` (либо `tty`, если эта сессия достпна интерактивно)
+5. Получится ли одновременно передать команде файл на stdin и вывести ее stdout в другой файл? Приведите работающий пример.
+   1. получится: `command > out < in`, например:
+   ```bash
+    vagrant@vagrant:~$ for i in {1..1000}; do echo $i >> test_input.txt ; done
+    vagrant@vagrant:~$ tail test_input.txt
+    991
+    992
+    993
+    994
+    995
+    996
+    997
+    998
+    999
+    1000
+    vagrant@vagrant:~$ grep -v 1 > test_out.txt < test_input.txt
+    vagrant@vagrant:~$ tail test_out.txt
+    989
+    990
+    992
+    993
+    994
+    995
+    996
+    997
+    998
+    999
+    ```
 
