@@ -90,4 +90,21 @@
     vagrant@vagrant:~$ echo netology > /proc/1371/fd/5
     netology
     ```
+8. Получится ли в качестве входного потока для pipe использовать только stderr команды, не потеряв при этом отображение stdout на pty?
+   1. например так:
+   ```bash
+   vagrant@vagrant:~$ curl -v -r 0-99 https://curl.se/download.html 42>&1 1>&2 2>&42 42>&-  | grep TLS
+   * TLSv1.3 (OUT), TLS handshake, Client hello (1):
+   * TLSv1.3 (IN), TLS handshake, Server hello (2):
+   * TLSv1.2 (IN), TLS handshake, Certificate (11):
+   * TLSv1.2 (IN), TLS handshake, Server key exchange (12):
+   * TLSv1.2 (IN), TLS handshake, Server finished (14):
+   * TLSv1.2 (OUT), TLS handshake, Client key exchange (16):
+   * TLSv1.2 (OUT), TLS change cipher, Change cipher spec (1):
+   * TLSv1.2 (OUT), TLS handshake, Finished (20):
+   * TLSv1.2 (IN), TLS handshake, Finished (20):
+   * SSL connection using TLSv1.2 / ECDHE-RSA-AES128-GCM-SHA256
+   <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd
+   ```
+   здесь, последняя строка -- содержимое страницы которую curl посылает на stdout по-умолчанию
 
