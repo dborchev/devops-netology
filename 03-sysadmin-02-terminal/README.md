@@ -125,3 +125,12 @@
     $ ls  -lah /proc/2604/exe
     lrwxrwxrwx 1 vagrant vagrant 0 Jan 20 07:20 /proc/2604/exe -> /usr/bin/sleep
     ```
+11. Узнайте, какую наиболее старшую версию набора инструкций SSE поддерживает ваш процессор с помощью `/proc/cpuinfo`
+    1. `sse4_2`:
+    ```bash
+    $ cat /proc/cpuinfo | egrep -o 'sse\S+' | sort -u
+    sse2
+    sse3
+    sse4_1
+    sse4_2
+    ```
