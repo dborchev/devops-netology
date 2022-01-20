@@ -134,3 +134,31 @@
     sse4_1
     sse4_2
     ```
+12. При открытии нового окна терминала и `vagrant ssh` создается новая сессия и выделяется pty. Это можно подтвердить командой `tty`, которая упоминалась в лекции 3.2. Однако:
+
+     ```bash
+     vagrant@netology1:~$ ssh localhost 'tty'
+     not a tty
+     ```
+
+     Почитайте, почему так происходит, и как изменить поведение.
+    1. важно, что если войти, и дать команду, то она отрабатывает нормально:
+    ```bash
+    $ ssh localhost 'tty'
+    vagrant@localhost's password:
+    not a tty
+    vagrant@vagrant:~$ ssh localhost
+    vagrant@localhost's password:
+    Welcome to Ubuntu 20.04.2 LTS (GNU/Linux 5.4.0-80-generic x86_64)
+    //snip
+    vagrant@vagrant:~$ tty
+    /dev/pts/1
+    ```
+    2. значит, во втором случае мы логинимся "полностью" (интерактивно, с профилем), а в первом - нет
+    3. как показывает справка, в первом случае `ssh` по-умолчанию не создаёт TTY; заставить его можно так:
+    ```bash
+    $ ssh -t localhost 'tty'
+    vagrant@localhost's password:
+    /dev/pts/1
+    Connection to localhost closed.
+    ```
