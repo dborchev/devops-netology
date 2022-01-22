@@ -155,10 +155,24 @@
     /dev/pts/1
     ```
     2. значит, во втором случае мы логинимся "полностью" (интерактивно, с профилем), а в первом - нет
-    3. как показывает справка, в первом случае `ssh` по-умолчанию не создаёт TTY; заставить его можно так:
+    3. как показывает [справка](https://linux.die.net/man/1/ssh), в первом случае `ssh` по-умолчанию не создаёт TTY; заставить его можно так:
     ```bash
     $ ssh -t localhost 'tty'
     vagrant@localhost's password:
     /dev/pts/1
     Connection to localhost closed.
+    ```
+13. Бывает, что есть необходимость переместить запущенный процесс из одной сессии в другую. Попробуйте сделать это, воспользовавшись `reptyr`. Например, так можно перенести в `screen` процесс, который вы запустили по ошибке в обычной SSH-сессии.
+    1. как-то так:
+    ```bash
+    vagrant@vagrant:~$ bash -c 'sleep 10000' &
+    [1] 4279
+    vagrant@vagrant:~$ screen -S test -d -m reptyr 4279
+    vagrant@vagrant:~$ exit
+    logout
+    Connection to 127.0.0.1 closed.
+    PS C:\study\netology\devops-netology\03-sysadmin-01-terminal\vagrant> vagrant ssh
+    //snip
+    vagrant@vagrant:~$ ps aux | grep 4279
+    vagrant     4279  0.0  0.0   8076   528 ?        S    09:27   0:00 sleep 10000
     ```
