@@ -151,3 +151,24 @@
    [    0.109478] Booting paravirtualized kernel on KVM
    [    3.153753] systemd[1]: Detected virtualization oracle.
    ```
+5. Как настроен sysctl `fs.nr_open` на системе по-умолчанию? 
+   1. 
+   ```bash
+   vagrant@vagrant:~$ sysctl -n fs.nr_open
+   1048576
+   ```
+   3. **Узнайте, что означает этот параметр.** 
+      1. это предельное число файловых дескрипторов (или хэндлеров, согласно https://sysctl-explorer.net/fs/nr_open/ )
+   4. **Какой другой существующий лимит не позволит достичь такого числа (`ulimit --help`)?**
+      1. судя по справке, используется минимальное рабочее значение софт-лимита
+      ```bash
+      vagrant@vagrant:~$ ulimit --help | grep "file descriptors"
+      -n the maximum number of open file descriptors
+      vagrant@vagrant:~$ ulimit -n
+      1024
+      vagrant@vagrant:~$ ulimit -Sn
+      1024
+      vagrant@vagrant:~$ ulimit -Hn
+      1048576        // <== по-умолчанию, здесь тоже значение, что и в системном лимите выше
+      ```
+   
