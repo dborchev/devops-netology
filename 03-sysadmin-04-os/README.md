@@ -63,3 +63,39 @@
    go_gc_duration_seconds_count 0
    # HELP go_goroutines Number of goroutines that currently exist.
    ```
+2. Ознакомьтесь с опциями node_exporter и выводом `/metrics` по-умолчанию.  ✅ 
+   Приведите несколько опций, которые вы бы выбрали для базового мониторинга хоста по CPU, памяти, диску и сети.
+   1. CPU:
+   ```bash
+   vagrant@vagrant:~$ curl -Ss localhost:9100/metrics | egrep 'node_cpu_sec.+"(idle|system|user)"' | grep -v '#'
+   node_cpu_seconds_total{cpu="0",mode="idle"} 566281.09
+   node_cpu_seconds_total{cpu="0",mode="system"} 78.45
+   node_cpu_seconds_total{cpu="0",mode="user"} 71.11
+   node_cpu_seconds_total{cpu="1",mode="idle"} 566132.11
+   node_cpu_seconds_total{cpu="1",mode="system"} 122.06
+   node_cpu_seconds_total{cpu="1",mode="user"} 57.06
+   ```
+   2. память:
+   ```bash
+   vagrant@vagrant:~$ curl -Ss localhost:9100/metrics | egrep '(node_memory_Mem)' | grep -v '#'
+   node_memory_MemAvailable_bytes 7.15476992e+08
+   node_memory_MemFree_bytes 1.94097152e+08
+   node_memory_MemTotal_bytes 1.028694016e+09
+   ```
+   3. диск:
+   ```bash
+   vagrant@vagrant:~$ curl -Ss localhost:9100/metrics | egrep 'node_disk.+_seconds_.+"sd[a-z]"' | grep -v '#'
+   node_disk_discard_time_seconds_total{device="sda"} 0
+   node_disk_io_time_seconds_total{device="sda"} 40.368
+   node_disk_io_time_weighted_seconds_total{device="sda"} 15.476
+   node_disk_read_time_seconds_total{device="sda"} 6.932
+   node_disk_write_time_seconds_total{device="sda"} 44.599000000000004
+   ```
+   4. сеть:
+   ```bash
+   vagrant@vagrant:~$ curl -Ss localhost:9100/metrics | egrep 'node_network.+(errs|bytes)_t.+"eth[0-9]"' | grep -v '#'
+   node_network_receive_bytes_total{device="eth0"} 8.1852297e+07
+   node_network_receive_errs_total{device="eth0"} 0
+   node_network_transmit_bytes_total{device="eth0"} 3.568308e+06
+   node_network_transmit_errs_total{device="eth0"} 0
+   ```
