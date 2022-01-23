@@ -171,4 +171,17 @@
       vagrant@vagrant:~$ ulimit -Hn
       1048576        // <== по-умолчанию, здесь тоже значение, что и в системном лимите выше
       ```
-   
+6. Запустите любой долгоживущий процесс в отдельном неймспейсе процессов; покажите, что ваш процесс работает под PID 1 через `nsenter`.
+   1. .
+   ```bash
+   root@vagrant:~# unshare -f --pid --mount-proc sleep 100000 &
+   [1] 1608
+   root@vagrant:~# ps | grep sleep
+   1609 pts/0    00:00:00 sleep
+   root@vagrant:~# nsenter --target 1609 --pid --mount
+   root@vagrant:/# ps
+    PID TTY          TIME CMD
+      1 pts/0    00:00:00 sleep
+      2 pts/0    00:00:00 bash
+     11 pts/0    00:00:00 ps
+   ```
