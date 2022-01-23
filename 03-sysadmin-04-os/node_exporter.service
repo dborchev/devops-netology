@@ -1,0 +1,9 @@
+[Unit]
+Description=node_exporter
+
+[Service]
+ExecStart=/opt/node_exporter
+EnvironmentFile=/etc/node_exporter
+
+[Install]
+WantedBy=default.target
