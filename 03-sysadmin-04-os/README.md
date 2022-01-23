@@ -143,3 +143,11 @@
    tcp6       0      0 ::1:8125                :::*                    LISTEN      714/netdata
    ```
    * Ознакомьтесь с метриками, которые по умолчанию собираются Netdata и с комментариями, которые даны к этим метрикам. ✅
+4. Можно ли по выводу `dmesg` понять, осознает ли ОС, что загружена не на настоящем оборудовании, а на системе виртуализации?
+   1. да, например так:
+   ```bash
+   vagrant@vagrant:~$ dmesg | grep virt
+   [    0.002094] CPU MTRRs all blank - virtualized system.
+   [    0.109478] Booting paravirtualized kernel on KVM
+   [    3.153753] systemd[1]: Detected virtualization oracle.
+   ```
