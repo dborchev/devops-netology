@@ -121,3 +121,25 @@
      config.vm.network "forwarded_port", guest: 19999, host: 19999
    ```
    [✅](https://github.com/dborchev/devops-netology/blob/main/03-sysadmin-01-terminal/vagrant/Vagrantfile) 
+   * После успешной перезагрузки в браузере *на своем ПК* (не в виртуальной машине) вы должны суметь зайти на `localhost:19999` ✅:
+   ```powershell
+   PS C:\study\netology\devops-netology\03-sysadmin-01-terminal\vagrant> vagrant reload
+   //snip
+   ==> default: Forwarding ports...
+       default: 19999 (guest) => 19999 (host) (adapter 1)
+       default: 22 (guest) => 2222 (host) (adapter 1)
+   ==> default: Booting VM...
+   //snip
+   ```
+   соединения от хостового браузера видны в машине:
+   ```bash
+   vagrant@vagrant:~$ sudo netstat -anp -t | grep netdata
+   tcp        0      0 127.0.0.1:8125          0.0.0.0:*               LISTEN      714/netdata
+   tcp        0      0 0.0.0.0:19999           0.0.0.0:*               LISTEN      714/netdata
+   tcp        0      0 10.0.2.15:19999         10.0.2.2:60575          ESTABLISHED 714/netdata
+   tcp        0      0 10.0.2.15:19999         10.0.2.2:60576          ESTABLISHED 714/netdata
+   tcp        0      0 10.0.2.15:19999         10.0.2.2:60578          ESTABLISHED 714/netdata
+   tcp        0      0 10.0.2.15:19999         10.0.2.2:60577          ESTABLISHED 714/netdata
+   tcp6       0      0 ::1:8125                :::*                    LISTEN      714/netdata
+   ```
+   * Ознакомьтесь с метриками, которые по умолчанию собираются Netdata и с комментариями, которые даны к этим метрикам. ✅
