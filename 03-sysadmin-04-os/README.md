@@ -185,3 +185,24 @@
       2 pts/0    00:00:00 bash
      11 pts/0    00:00:00 ps
    ```
+7. Найдите информацию о том, что такое `:(){ :|:& };:`.
+   1. это форк-бомба, либо очень странный смайлик
+   2. >Запустите эту команду в своей виртуальной машине Vagrant с Ubuntu 20.04 ✅
+   3. >Некоторое время все будет "плохо", после чего (минуты) – ОС должна стабилизироваться. ✅
+   4. >Вызов `dmesg` расскажет, какой механизм помог автоматической стабилизации:
+   ```bash
+   vagrant@vagrant:~$ dmesg | tail -1
+   [ 2237.947744] cgroup: fork rejected by pids controller in /user.slice/user-1000.slice/session-3.scope
+   ```
+   5. >Как настроен этот механизм по-умолчанию, и как изменить число процессов, которое можно создать в сессии?
+      1. это ограничение числа процессов пользователя:
+      ```bash
+      vagrant@vagrant:~$ ulimit --help | grep processes
+           Provides control over the resources available to the shell and processes
+             -u the maximum number of user processes
+           number of processes.
+      vagrant@vagrant:~$ ulimit -u
+      3571
+      // соответственно, изменив это значение -- изменим число процессов:
+      vagrant@vagrant:~$ ulimit -u 42
+      ```
