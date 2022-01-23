@@ -99,3 +99,25 @@
    node_network_transmit_bytes_total{device="eth0"} 3.568308e+06
    node_network_transmit_errs_total{device="eth0"} 0
    ```
+3. Установите в свою виртуальную машину [Netdata](https://github.com/netdata/netdata).  ✅ После успешной установки:
+   * в конфигурационном файле `/etc/netdata/netdata.conf` в секции [web] замените значение с localhost на `bind to = 0.0.0.0`,
+   ```bash
+   vagrant@vagrant:~$ sudo sed -i 's/127.0.0.1/0.0.0.0/g' /etc/netdata/netdata.conf
+   vagrant@vagrant:~$ grep bind /etc/netdata/netdata.conf
+   bind socket to IP = 0.0.0.0
+   vagrant@vagrant:~$ service netdata start
+   ==== AUTHENTICATING FOR org.freedesktop.systemd1.manage-units ===
+   Authentication is required to start 'netdata.service'.
+   Authenticating as: vagrant,,, (vagrant)
+   Password:
+   ==== AUTHENTICATION COMPLETE ===
+   vagrant@vagrant:~$ sudo netstat -anp -t | grep netdata
+   tcp        0      0 127.0.0.1:8125          0.0.0.0:*               LISTEN      8808/netdata
+   tcp        0      0 0.0.0.0:19999           0.0.0.0:*               LISTEN      8808/netdata
+   tcp6       0      0 ::1:8125                :::*                    LISTEN      8808/netdata
+   ```
+   * добавьте в Vagrantfile проброс порта Netdata на свой локальный компьютер и сделайте `vagrant reload`:
+   ```bash
+     config.vm.network "forwarded_port", guest: 19999, host: 19999
+   ```
+   [✅](https://github.com/dborchev/devops-netology/blob/main/03-sysadmin-01-terminal/vagrant/Vagrantfile) 
