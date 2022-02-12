@@ -225,3 +225,10 @@ https://github.com/netology-code/sysadm-homeworks/tree/devsys10/03-sysadmin-05-f
       └─md0                9:0    0 1018M  0 raid0
         └─vg0-lvol0      253:2    0  100M  0 lvm   /tmp/tmp.HZSutj1D3Q
     ```
+15. Протестируйте целостность файла:
+    1. ✅
+    ```bash
+    root@vagrant:/home/vagrant# gzip -t /tmp/tmp.HZSutj1D3Q/test.gz
+    root@vagrant:/home/vagrant# echo $?
+    0
+    ```
