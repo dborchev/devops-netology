@@ -180,3 +180,24 @@ https://github.com/netology-code/sysadm-homeworks/tree/devsys10/03-sysadmin-05-f
     root@vagrant:/home/vagrant# mount | grep lvol
     /dev/mapper/vg0-lvol0 on /tmp/tmp.HZSutj1D3Q type ext4 (rw,relatime,stripe=256)
     ```
+13. Поместите туда тестовый файл, например `wget https://mirror.yandex.ru/ubuntu/ls-lR.gz -O /tmp/new/test.gz`
+    1. ✅
+    ```bash
+    root@vagrant:/home/vagrant# wget https://mirror.yandex.ru/ubuntu/ls-lR.gz -O /tmp/tmp.HZSutj1D3Q/test.gz
+    --2022-02-12 10:41:09--  https://mirror.yandex.ru/ubuntu/ls-lR.gz
+    Resolving mirror.yandex.ru (mirror.yandex.ru)... 213.180.204.183, 2a02:6b8::183
+    Connecting to mirror.yandex.ru (mirror.yandex.ru)|213.180.204.183|:443... connected.
+    HTTP request sent, awaiting response... 200 OK
+    Length: 22341182 (21M) [application/octet-stream]
+    Saving to: ‘/tmp/tmp.HZSutj1D3Q/test.gz’
+    
+    /tmp/tmp.HZSutj1D3Q/test.gz      100%[==========================================================>]  21.31M  5.56MB/s    in 4.0s
+    
+    2022-02-12 10:41:13 (5.29 MB/s) - ‘/tmp/tmp.HZSutj1D3Q/test.gz’ saved [22341182/22341182]
+    root@vagrant:/home/vagrant# ll /tmp/tmp.HZSutj1D3Q/
+    total 21844
+    drwxr-xr-x  3 root root     4096 Feb 12 10:41 ./
+    drwxrwxrwt 11 root root     4096 Feb 12 10:36 ../
+    drwx------  2 root root    16384 Feb 12 10:33 lost+found/
+    -rw-r--r--  1 root root 22341182 Feb 12 09:17 test.gz
+    ```
