@@ -303,3 +303,10 @@ https://github.com/netology-code/sysadm-homeworks/tree/devsys10/03-sysadmin-05-f
     [ 3509.597654] md/raid1:md1: Disk failure on sdc1, disabling device.
                    md/raid1:md1: Operation continuing on 1 devices.
     ```
+19. Протестируйте целостность файла, несмотря на "сбойный" диск он должен продолжать быть доступен:
+    1. ✅
+    ```bash
+    root@vagrant:/home/vagrant# gzip -t /tmp/tmp.HZSutj1D3Q/test.gz
+    root@vagrant:/home/vagrant# echo $?
+    0
+    ```
