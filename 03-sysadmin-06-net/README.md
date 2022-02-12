@@ -36,3 +36,17 @@ https://github.com/netology-code/sysadm-homeworks/blob/devsys10/03-sysadmin-06-n
      - `301`
      - "редирект" - указывает куда пойти с таким запросом
      - в данном случае, нам намекают, что нужно использовать HTTPS
+2. Повторите задание 1 в браузере, используя консоль разработчика F12. ✅
+   - откройте вкладку `Network` ✅
+   - отправьте запрос http://stackoverflow.com ✅
+   - найдите первый ответ HTTP сервера, откройте вкладку `Headers` ✅
+   - укажите в ответе полученный HTTP код.
+     - `301`
+   - проверьте время загрузки страницы, какой запрос обрабатывался дольше всего?
+     - следование по редиректу оригинального запроса заняло 127ms
+     - если смотреть атомарные запросы, то 82ms ушло на
+     ```bash
+     GET 'https://cdn.sstatic.net/Fonts/source-sans-pro/source-sans-pro-regular-webfont.woff?v=993db0ec4347' 
+     ```
+   - приложите скриншот консоли браузера в ответ:
+   ![browswer-screeshot](https://github.com/dborchev/devops-netology/blob/main/03-sysadmin-06-net/browser-screenshot.png?raw=true)
