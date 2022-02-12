@@ -87,3 +87,21 @@ https://github.com/netology-code/sysadm-homeworks/tree/devsys10/03-sysadmin-05-f
    Calling ioctl() to re-read partition table.
    Syncing disks.
    ```
+6. Соберите `mdadm` RAID1 на паре разделов 2 Гб
+   1. ✅
+   ```bash
+   root@vagrant:/home/vagrant# mdadm --create  /dev/md1 -l 1 -n 2 /dev/sdb1  /dev/sdc1
+   mdadm: Note: this array has metadata at the start and
+       may not be suitable as a boot device.  If you plan to
+       store '/boot' on this device please ensure that
+       your boot-loader understands md/v1.x metadata, or use
+       --metadata=0.90
+   Continue creating array? yes
+   mdadm: Defaulting to version 1.2 metadata
+   mdadm: array /dev/md1 started.
+   root@vagrant:/home/vagrant# fdisk -l /dev/md1
+   Disk /dev/md1: 1.102 GiB, 2144337920 bytes, 4188160 sectors
+   Units: sectors of 1 * 512 = 512 bytes
+   Sector size (logical/physical): 512 bytes / 512 bytes
+   I/O size (minimum/optimal): 512 bytes / 512 bytes
+   ```
