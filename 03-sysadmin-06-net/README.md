@@ -47,8 +47,26 @@ https://github.com/netology-code/sysadm-homeworks/blob/devsys10/03-sysadmin-06-n
    - приложите скриншот консоли браузера в ответ:
    ![browswer-screeshot](https://github.com/dborchev/devops-netology/blob/main/03-sysadmin-06-net/browser-screenshot.png?raw=true)
 3. Какой IP адрес у вас в интернете?
-   1. ✅
+   1. красивый ✅
    ```bash
    vagrant@vagrant:~$ curl ifconfig.me
    203.0.113.42
    ```
+4. Это скорее, мысленный эксперимент 😉
+   1. Какому провайдеру принадлежит ваш IP адрес? 
+      1. никакому, но почему бы и не APNIC:
+      ```bash
+      vagrant@vagrant:~$ whois 203.0.113.42 | grep mnt-by
+      mnt-by:         APNIC-HM
+      mnt-by:         MAINT-AU-APNIC-GM85-AP
+      mnt-by:         APNIC-HM
+      mnt-by:         APNIC-ABUSE
+      mnt-by:         MAINT-APNIC-AP
+      ```
+   2. Какой автономной системе AS? 
+      1. никакой, но раз уж взялись, будет 65542:
+      ```bash
+      vagrant@vagrant:~$ whois 203.0.113.42 | grep origin
+      origin:         AS65542
+      ```
+   3. Воспользуйтесь утилитой `whois` ✅
