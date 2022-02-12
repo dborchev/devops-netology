@@ -22,18 +22,19 @@ https://github.com/netology-code/sysadm-homeworks/tree/devsys10/03-sysadmin-05-f
    -rwxrwxr-x  2 vagrant vagrant    0 Feb 12 09:30 superfile*
    -rwxrwxr-x  2 vagrant vagrant    0 Feb 12 09:30 superlinktosuperfile*
    ```
-1. Сделайте `vagrant destroy` на имеющийся инстанс Ubuntu. Замените содержимое Vagrantfile следующим:
-    ```bash
-    Vagrant.configure("2") do |config|
-      config.vm.box = "bento/ubuntu-20.04"
-      config.vm.provider :virtualbox do |vb|
-        lvm_experiments_disk0_path = "/tmp/lvm_experiments_disk0.vmdk"
-        lvm_experiments_disk1_path = "/tmp/lvm_experiments_disk1.vmdk"
-        vb.customize ['createmedium', '--filename', lvm_experiments_disk0_path, '--size', 2560]
-        vb.customize ['createmedium', '--filename', lvm_experiments_disk1_path, '--size', 2560]
-        vb.customize ['storageattach', :id, '--storagectl', 'SATA Controller', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', lvm_experiments_disk0_path]
-        vb.customize ['storageattach', :id, '--storagectl', 'SATA Controller', '--port', 2, '--device', 0, '--type', 'hdd', '--medium', lvm_experiments_disk1_path]
-      end
-    end
-    ```
-    Данная конфигурация создаст новую виртуальную машину с двумя дополнительными неразмеченными дисками по 2.5 Гб.  ✅
+3. Сделайте `vagrant destroy` на имеющийся инстанс Ubuntu. Замените содержимое Vagrantfile...
+   1. Создал новый: ✅ https://github.com/dborchev/devops-netology/blob/main/03-sysadmin-05-fs/vagrant/Vagrantfile
+   3. Данная конфигурация создаст новую виртуальную машину с двумя дополнительными неразмеченными дисками по 2.5 Гб.  ✅
+   4. появились `sdb` и `sdc`:
+   ```bash
+   vagrant@vagrant:~$ lsblk
+   NAME                 MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+   sda                    8:0    0   64G  0 disk
+   ├─sda1                 8:1    0  512M  0 part /boot/efi
+   ├─sda2                 8:2    0    1K  0 part
+   └─sda5                 8:5    0 63.5G  0 part
+     ├─vgvagrant-root   253:0    0 62.6G  0 lvm  /
+     └─vgvagrant-swap_1 253:1    0  980M  0 lvm  [SWAP]
+   sdb                    8:16   0  2.5G  0 disk
+   sdc                    8:32   0  2.5G  0 disk
+   ```
