@@ -130,3 +130,13 @@ https://github.com/netology-code/sysadm-homeworks/blob/devsys10/03-sysadmin-06-n
       8.8.4.4
       8.8.8.8
       ```
+8. Проверьте PTR записи для IP адресов из задания 7. Какое доменное имя привязано к IP? воспользуйтесь утилитой `dig`
+   1. см. вывод
+   ```bash
+   vagrant@vagrant:~$ dig -x 8.8.4.4 | grep PTR
+   ;4.4.8.8.in-addr.arpa.          IN      PTR
+   4.4.8.8.in-addr.arpa.   7175    IN      PTR     dns.google.
+   vagrant@vagrant:~$ dig -x 8.8.8.8 | grep PTR
+   ;8.8.8.8.in-addr.arpa.          IN      PTR
+   8.8.8.8.in-addr.arpa.   20672   IN      PTR     dns.google.
+   ```
