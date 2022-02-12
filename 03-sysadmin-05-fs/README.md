@@ -22,3 +22,18 @@ https://github.com/netology-code/sysadm-homeworks/tree/devsys10/03-sysadmin-05-f
    -rwxrwxr-x  2 vagrant vagrant    0 Feb 12 09:30 superfile*
    -rwxrwxr-x  2 vagrant vagrant    0 Feb 12 09:30 superlinktosuperfile*
    ```
+1. Сделайте `vagrant destroy` на имеющийся инстанс Ubuntu. Замените содержимое Vagrantfile следующим:
+    ```bash
+    Vagrant.configure("2") do |config|
+      config.vm.box = "bento/ubuntu-20.04"
+      config.vm.provider :virtualbox do |vb|
+        lvm_experiments_disk0_path = "/tmp/lvm_experiments_disk0.vmdk"
+        lvm_experiments_disk1_path = "/tmp/lvm_experiments_disk1.vmdk"
+        vb.customize ['createmedium', '--filename', lvm_experiments_disk0_path, '--size', 2560]
+        vb.customize ['createmedium', '--filename', lvm_experiments_disk1_path, '--size', 2560]
+        vb.customize ['storageattach', :id, '--storagectl', 'SATA Controller', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', lvm_experiments_disk0_path]
+        vb.customize ['storageattach', :id, '--storagectl', 'SATA Controller', '--port', 2, '--device', 0, '--type', 'hdd', '--medium', lvm_experiments_disk1_path]
+      end
+    end
+    ```
+    Данная конфигурация создаст новую виртуальную машину с двумя дополнительными неразмеченными дисками по 2.5 Гб.  ✅
