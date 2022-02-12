@@ -31,3 +31,47 @@ https://github.com/netology-code/sysadm-homeworks/blob/devsys10/03-sysadmin-07-n
       netmask 255.255.255.0
       vlan-raw-device eth0
       ```
+      2. с другой стороны, например
+      ```cisco
+      interface Ethernet0
+         switchport mode trunk
+         switchport trunk encapsulation dot1q
+         switchport trunk allowed vlan 42
+      ```
+4. ...
+   1. Какие типы агрегации интерфейсов есть в Linux?
+      1. поддерживаются как стандартный `802.3ad`, некоторые простые режимы резервирования (`active-backup`, `broadcast`), и несколько вариантов балансировки
+   2. Какие опции есть для балансировки нагрузки?
+      1. "по кругу" (round-robin `balance-rr`)
+      2. по хэшу из заголовков пакета (XOR, `balance-xor`)
+      3. адаптивный к исходящей нагрузке (Transmit Load Balancing, `balance-tlb`)
+      4. адаптивный к двусторонней нагрузке (Adaptive (Transmit + Receive), `balance-alb`)
+   3. Приведите пример конфига
+   ```bash
+   vagrant@vagrant:~$ cat /etc/network/interfaces.d/99-test-bonding
+   auto eth0
+   iface eth0 inet manual
+        bond-master bond0
+        bond-primary eth0
+   auto eth1
+   iface eth1 inet manual
+        bond-master bond0
+   auto bond0
+   iface bond0 inet static
+        address 192.168.42.42
+        gateway 192.168.42.1
+        netmask 255.255.255.0
+        bond-mode 802.3ad
+        bond-miimon 100
+        bond-slaves none
+   ```
+   с другой стороны например так
+   ```cisco
+   interface Ethernet0
+       channel-group 42 mode active
+   interface Ethernet1
+       channel-group 42 mode active
+   interface port-channel 42
+       no shutdown
+   ```
+   
