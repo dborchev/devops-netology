@@ -105,3 +105,15 @@ https://github.com/netology-code/sysadm-homeworks/tree/devsys10/03-sysadmin-05-f
    Sector size (logical/physical): 512 bytes / 512 bytes
    I/O size (minimum/optimal): 512 bytes / 512 bytes
    ```
+7. Соберите `mdadm` RAID0 на второй паре маленьких разделов.
+   1. ✅
+   ```bash
+   root@vagrant:/home/vagrant# mdadm --create  /dev/md0 -l 0 -n 2 /dev/sdb2  /dev/sdc2
+   mdadm: Defaulting to version 1.2 metadata
+   mdadm: array /dev/md0 started.
+   root@vagrant:/home/vagrant# fdisk -l /dev/md0
+   Disk /dev/md0: 1018 MiB, 1067450368 bytes, 2084864 sectors
+   Units: sectors of 1 * 512 = 512 bytes
+   Sector size (logical/physical): 512 bytes / 512 bytes
+   I/O size (minimum/optimal): 524288 bytes / 1048576 bytes
+   ```
