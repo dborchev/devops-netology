@@ -117,3 +117,10 @@ https://github.com/netology-code/sysadm-homeworks/tree/devsys10/03-sysadmin-05-f
    Sector size (logical/physical): 512 bytes / 512 bytes
    I/O size (minimum/optimal): 524288 bytes / 1048576 bytes
    ```
+8. Создайте 2 независимых PV на получившихся md-устройствах.
+   1. ✅
+   ```bash
+   root@vagrant:/home/vagrant# pvcreate /dev/md0 /dev/md1
+     Physical volume "/dev/md0" successfully created.
+     Physical volume "/dev/md1" successfully created.
+   ```
