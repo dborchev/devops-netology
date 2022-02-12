@@ -259,3 +259,38 @@ https://github.com/netology-code/sysadm-homeworks/tree/devsys10/03-sysadmin-05-f
     └─sdc2                 8:34   0  511M  0 part
       └─md0                9:0    0 1018M  0 raid0
     ```
+17. Сделайте `--fail` на устройство в вашем RAID1 md.
+    1. ...
+    ```bash
+    root@vagrant:/home/vagrant# mdadm /dev/md1 --fail /dev/sdc1
+    mdadm: set /dev/sdc1 faulty in /dev/md1
+    root@vagrant:/home/vagrant# mdadm --detail /dev/md1
+    /dev/md1:
+               Version : 1.2
+         Creation Time : Sat Feb 12 10:14:52 2022
+            Raid Level : raid1
+            Array Size : 2094080 (2045.00 MiB 2144.34 MB)
+         Used Dev Size : 2094080 (2045.00 MiB 2144.34 MB)
+          Raid Devices : 2
+         Total Devices : 2
+           Persistence : Superblock is persistent
+    
+           Update Time : Sat Feb 12 10:51:35 2022
+                 State : clean, degraded
+        Active Devices : 1
+       Working Devices : 1
+        Failed Devices : 1
+         Spare Devices : 0
+    
+    Consistency Policy : resync
+    
+                  Name : vagrant:1  (local to host vagrant)
+                  UUID : eb2acf9a:d17d2ae4:2264fc8e:6f34b0eb
+                Events : 19
+    
+        Number   Major   Minor   RaidDevice State
+           0       8       17        0      active sync   /dev/sdb1
+           -       0        0        1      removed
+    
+           1       8       33        -      faulty   /dev/sdc1
+    ```
