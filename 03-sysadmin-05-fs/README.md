@@ -310,3 +310,4 @@ https://github.com/netology-code/sysadm-homeworks/tree/devsys10/03-sysadmin-05-f
     root@vagrant:/home/vagrant# echo $?
     0
     ```
+20. Погасите тестовый хост, `vagrant destroy` ✅
