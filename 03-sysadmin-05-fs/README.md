@@ -260,7 +260,7 @@ https://github.com/netology-code/sysadm-homeworks/tree/devsys10/03-sysadmin-05-f
       └─md0                9:0    0 1018M  0 raid0
     ```
 17. Сделайте `--fail` на устройство в вашем RAID1 md.
-    1. ...
+    1. ✅
     ```bash
     root@vagrant:/home/vagrant# mdadm /dev/md1 --fail /dev/sdc1
     mdadm: set /dev/sdc1 faulty in /dev/md1
@@ -293,4 +293,13 @@ https://github.com/netology-code/sysadm-homeworks/tree/devsys10/03-sysadmin-05-f
            -       0        0        1      removed
     
            1       8       33        -      faulty   /dev/sdc1
+    ```
+18. Подтвердите выводом `dmesg`, что RAID1 работает в деградированном состоянии.
+    1. ✅
+    ```bash
+    root@vagrant:/home/vagrant# dmesg | grep raid1
+    [ 1307.037292] md/raid1:md1: not clean -- starting background reconstruction
+    [ 1307.037293] md/raid1:md1: active with 2 out of 2 mirrors
+    [ 3509.597654] md/raid1:md1: Disk failure on sdc1, disabling device.
+                   md/raid1:md1: Operation continuing on 1 devices.
     ```
