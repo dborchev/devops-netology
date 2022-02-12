@@ -113,3 +113,20 @@ https://github.com/netology-code/sysadm-homeworks/blob/devsys10/03-sysadmin-06-n
        AS15169  209.85.143.81
    15. AS15169  8.8.8.8        0.0%    12    1.1   1.2   1.1   2.2   0.3
    ```
+7. воспользуйтесь утилитой `dig` ✅
+   1. Какие DNS сервера отвечают за доменное имя dns.google?
+      1. см. вывод
+      ```bash
+      vagrant@vagrant:~$ dig +short -t ns dns.google
+      ns4.zdns.google.
+      ns2.zdns.google.
+      ns1.zdns.google.
+      ns3.zdns.google.
+      ```
+   2. Какие A записи?
+      1. см. вывод
+      ```bash
+      vagrant@vagrant:~$ dig +short -t a dns.google
+      8.8.4.4
+      8.8.8.8
+      ```
