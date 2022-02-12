@@ -150,3 +150,14 @@ https://github.com/netology-code/sysadm-homeworks/tree/devsys10/03-sysadmin-05-f
      Free  PE / Size       765 / <2.99 GiB
      VG UUID               zcd3Cf-TdsU-5BsK-hvFM-tUSE-Mdo7-dTfLlr
    ```
+10. Создайте LV размером 100 Мб, указав его расположение на PV с RAID0.
+    1. ✅
+   ```bash
+   root@vagrant:/home/vagrant# lvcreate --size 100M vg0 /dev/md0
+     Logical volume "lvol0" created.
+   root@vagrant:/home/vagrant# lvs
+     LV     VG        Attr       LSize   Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert
+     lvol0  vg0       -wi-a----- 100.00m
+     root   vgvagrant -wi-ao---- <62.54g
+     swap_1 vgvagrant -wi-ao---- 980.00m
+   ```
