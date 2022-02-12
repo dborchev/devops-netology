@@ -173,3 +173,10 @@ https://github.com/netology-code/sysadm-homeworks/tree/devsys10/03-sysadmin-05-f
     Creating journal (1024 blocks): done
     Writing superblocks and filesystem accounting information: done
     ```
+12. Смонтируйте этот раздел в любую директорию, например, `/tmp/new`
+    1. ✅
+    ```bash
+    root@vagrant:/home/vagrant# mount /dev/vg0/lvol0 $(mktemp -d)
+    root@vagrant:/home/vagrant# mount | grep lvol
+    /dev/mapper/vg0-lvol0 on /tmp/tmp.HZSutj1D3Q type ext4 (rw,relatime,stripe=256)
+    ```
