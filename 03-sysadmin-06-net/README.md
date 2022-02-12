@@ -46,3 +46,9 @@ https://github.com/netology-code/sysadm-homeworks/blob/devsys10/03-sysadmin-06-n
      - загрузка страницы после редиректа заняла 165ms
    - приложите скриншот консоли браузера в ответ:
    ![browswer-screeshot](https://github.com/dborchev/devops-netology/blob/main/03-sysadmin-06-net/browser-screenshot.png?raw=true)
+3. Какой IP адрес у вас в интернете?
+   1. ✅
+   ```bash
+   vagrant@vagrant:~$ curl ifconfig.me
+   203.0.113.42
+   ```
