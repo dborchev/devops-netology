@@ -225,3 +225,16 @@ https://github.com/netology-code/sysadm-homeworks/blob/devsys10/03-sysadmin-08-n
    tcp6       0      0 :::111                  :::*                    LISTEN      1/init
    tcp6       0      0 :::22                   :::*                    LISTEN      787/sshd: /usr/sbin
    ```
+4. Проверьте используемые UDP сокеты в Ubuntu, какие протоколы и приложения используют эти порты
+   1. например `netdata` на 8125, `systemd-resolve` на 53:
+   ```bash
+   vagrant@vagrant:~$ sudo netstat -anp -u
+   Active Internet connections (servers and established)
+   Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name
+   udp        0      0 127.0.0.1:8125          0.0.0.0:*                           775/netdata
+   udp        0      0 127.0.0.53:53           0.0.0.0:*                           570/systemd-resolve
+   udp        0      0 10.0.2.15:68            0.0.0.0:*                           395/systemd-network
+   udp        0      0 0.0.0.0:111             0.0.0.0:*                           1/init
+   udp6       0      0 ::1:8125                :::*                                775/netdata
+   udp6       0      0 :::111                  :::*                                1/init
+   ```
