@@ -209,3 +209,19 @@ https://github.com/netology-code/sysadm-homeworks/blob/devsys10/03-sysadmin-08-n
    10.0.2.0        0.0.0.0         255.255.255.0   U     0      0        0 eth0
    10.0.2.2        0.0.0.0         255.255.255.255 UH    100    0        0 eth0
    ```
+3. Проверьте открытые TCP порты в Ubuntu, какие протоколы и приложения используют эти порты? Приведите несколько примеров.
+   1. например `sshd` на порту 22, `netdata` на 8125:
+   ```bash
+   vagrant@vagrant:~$ sudo netstat -anp -t
+   Active Internet connections (servers and established)
+   Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name
+   tcp        0      0 127.0.0.1:8125          0.0.0.0:*               LISTEN      775/netdata
+   tcp        0      0 0.0.0.0:19999           0.0.0.0:*               LISTEN      775/netdata
+   tcp        0      0 0.0.0.0:111             0.0.0.0:*               LISTEN      1/init
+   tcp        0      0 127.0.0.53:53           0.0.0.0:*               LISTEN      570/systemd-resolve
+   tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN      787/sshd: /usr/sbin
+   tcp        0      0 10.0.2.15:22            10.0.2.2:49890          ESTABLISHED 1441/sshd: vagrant
+   tcp6       0      0 ::1:8125                :::*                    LISTEN      775/netdata
+   tcp6       0      0 :::111                  :::*                    LISTEN      1/init
+   tcp6       0      0 :::22                   :::*                    LISTEN      787/sshd: /usr/sbin
+   ```
