@@ -238,3 +238,6 @@ https://github.com/netology-code/sysadm-homeworks/blob/devsys10/03-sysadmin-08-n
    udp6       0      0 ::1:8125                :::*                                775/netdata
    udp6       0      0 :::111                  :::*                                1/init
    ```
+
+5. Используя diagrams.net, создайте L3 диаграмму вашей домашней сети или любой другой сети, с которой вы работали. 
+   1. сделал простую диаграму https://raw.githubusercontent.com/dborchev/devops-netology/main/03-sysadmin-08-net/netology-03-sysadmin-08-net.drawio
