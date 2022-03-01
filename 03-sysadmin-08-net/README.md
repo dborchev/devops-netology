@@ -192,3 +192,20 @@ https://github.com/netology-code/sysadm-homeworks/blob/devsys10/03-sysadmin-08-n
           path 7FE02AF2E730 RPKI State valid
           rx pathid: 0, tx pathid: 0
    ```
+2. Создайте dummy0 интерфейс в Ubuntu. Добавьте несколько статических маршрутов. Проверьте таблицу маршрутизации.
+   ```bash
+   vagrant@vagrant:~$ sudo ip addr add 7.1.1.1/32 dev dummy0
+   vagrant@vagrant:~$ sudo ip link set dummy0 up
+   vagrant@vagrant:~$ sudo route add -net 7.2.2.2 netmask 255.255.255.255 dev dummy0
+   vagrant@vagrant:~$ sudo route add -net 7.3.3.3 netmask 255.255.255.255 dev dummy0
+   vagrant@vagrant:~$ sudo route add -net 7.4.4.4 netmask 255.255.255.255 dev dummy0
+   vagrant@vagrant:~$ sudo route -n
+   Kernel IP routing table
+   Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+   0.0.0.0         10.0.2.2        0.0.0.0         UG    100    0        0 eth0
+   7.2.2.2         0.0.0.0         255.255.255.255 UH    0      0        0 dummy0
+   7.3.3.3         0.0.0.0         255.255.255.255 UH    0      0        0 dummy0
+   7.4.4.4         0.0.0.0         255.255.255.255 UH    0      0        0 dummy0
+   10.0.2.0        0.0.0.0         255.255.255.0   U     0      0        0 eth0
+   10.0.2.2        0.0.0.0         255.255.255.255 UH    100    0        0 eth0
+   ```
