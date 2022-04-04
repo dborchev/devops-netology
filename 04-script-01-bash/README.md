@@ -63,16 +63,16 @@ done
 ```bash
 HOSTS=(192.168.0.1 173.194.222.113 87.250.250.242)
 CONNECTTIMEOUT=5
-
+LOG=/var/log/host_test.log
 for i in {1..5}; do
-  echo Test $i on $(date) >> /var/log/host_test.log
+  echo Test $i on $(date) >> $LOG
   for H in $(hosts[@]); do
-    echo Test $H >> /var/log/host_test.log
+    echo Test $H >> $LOG
     curl -I -Ss \
      --connect-timeout $CONNECTTIMEOUT \
      --max-time $(($CONNECTTIMEOUT+1) \
-     'http://'$H:80 >/dev/null 2>>/var/log/host_test.log
-    echo Result for $H is $? >>/var/log/host_test.log
+     'http://'$H:80 >/dev/null 2>>$LOG
+    echo Result for $H is $? >>$LOG
   done
 done
 ```
@@ -82,14 +82,26 @@ done
 
 ### Ваш скрипт:
 ```bash
-???
-```
-
-## Дополнительное задание (со звездочкой*) - необязательно к выполнению
-
-Мы хотим, чтобы у нас были красивые сообщения для коммитов в репозиторий. Для этого нужно написать локальный хук для git, который будет проверять, что сообщение в коммите содержит код текущего задания в квадратных скобках и количество символов в сообщении не превышает 30. Пример сообщения: \[04-script-01-bash\] сломал хук.
-
-### Ваш скрипт:
-```bash
-???
+HOSTS=(192.168.0.1 173.194.222.113 87.250.250.242)
+CONNECTTIMEOUT=5
+RES=0
+LOG=/var/log/host_test.log
+# IP этого узла пишется в файл error
+ERRLOG=error
+while [[ $RES -eq 0 ]]; do
+  echo Test $(date) >> $LOG
+  for H in $(hosts[@]); do
+    echo Test $H >> $LOG
+    curl -I -Ss \
+     --connect-timeout $CONNECTTIMEOUT \
+     --max-time $(($CONNECTTIMEOUT+1) \
+     'http://'$H:80 >/dev/null 2>>$LOG
+    RES=$?
+    echo Result for $H is $RES >>$LOG
+    if [[ ! $RES -eq 0 ]]; do
+      echo $H >> $ERRLOG
+      exit $RES
+    fi
+  done
+done
 ```
