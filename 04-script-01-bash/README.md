@@ -70,7 +70,7 @@ for i in {1..5}; do
     echo Test $H >> $LOG
     curl -I -Ss \
      --connect-timeout $CONNECTTIMEOUT \
-     --max-time $(($CONNECTTIMEOUT+1) \
+     --max-time $(($CONNECTTIMEOUT+1)) \
      'http://'$H:80 >/dev/null 2>>$LOG
     echo Result for $H is $? >>$LOG
   done
