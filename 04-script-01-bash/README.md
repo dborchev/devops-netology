@@ -61,7 +61,20 @@ done
 
 ### Ваш скрипт:
 ```bash
-???
+HOSTS=(192.168.0.1 173.194.222.113 87.250.250.242)
+CONNECTTIMEOUT=5
+
+for i in {1..5}; do
+  echo Test $i on $(date) >> /var/log/host_test.log
+  for H in $(hosts[@]); do
+    echo Test $H >> /var/log/host_test.log
+    curl -I -Ss \
+     --connect-timeout $CONNECTTIMEOUT \
+     --max-time $(($CONNECTTIMEOUT+1) \
+     'http://'$H:80 >/dev/null 2>>/var/log/host_test.log
+    echo Result for $H is $? >>/var/log/host_test.log
+  done
+done
 ```
 
 ## Обязательная задача 4
