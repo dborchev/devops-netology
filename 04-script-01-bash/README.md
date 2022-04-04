@@ -94,7 +94,7 @@ while [[ $RES -eq 0 ]]; do
     echo Test $H >> $LOG
     curl -I -Ss \
      --connect-timeout $CONNECTTIMEOUT \
-     --max-time $(($CONNECTTIMEOUT+1) \
+     --max-time $(($CONNECTTIMEOUT+1)) \
      'http://'$H:80 >/dev/null 2>>$LOG
     RES=$?
     echo Result for $H is $RES >>$LOG
