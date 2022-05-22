@@ -11,3 +11,14 @@ https://github.com/netology-code/virt-homeworks/blob/virt-11/05-virt-04-docker-c
 
 На слайде 37 -- пример вывода ansible, а не скриншот. Наверное, имели ввиду слайд 32 с образом.
 
+![screenshots/01-images.png](screenshots/01-images.png)
+
+```bash
+$ yc compute image list
++----------------------+---------------+--------+----------------------+--------+
+|          ID          |     NAME      | FAMILY |     PRODUCT IDS      | STATUS |
++----------------------+---------------+--------+----------------------+--------+
+| fd85tmg0boo0eo5lm2o0 | centos-7-base | centos | f2e99agij1uhrk2ioilk | READY  |
++----------------------+---------------+--------+----------------------+--------+
+```
+
