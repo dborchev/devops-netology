@@ -297,3 +297,107 @@ test_db=# EXPLAIN (ANALYZE TRUE, VERBOSE TRUE) SELECT * FROM clients WHERE "за
 - описывает фильтр и число отфильтрованных строк
 - в конце, дано время планирования и исполнения запроса
 
+
+## Задача 6
+
+Создайте бэкап БД test_db и поместите его в volume, предназначенный для бэкапов (см. Задачу 1).
+
+Остановите контейнер с PostgreSQL (но не удаляйте volumes).
+
+Поднимите новый пустой контейнер с PostgreSQL.
+
+Восстановите БД test_db в новом контейнере.
+
+Приведите список операций, который вы применяли для бэкапа данных и восстановления. 
+
+```bash
+root@f35990159916:/# ls -lah /backup
+total 8.0K
+drwxr-xr-x 2 root root 4.0K May 29 13:23 .
+drwxr-xr-x 1 root root 4.0K May 29 13:28 ..
+root@f35990159916:/# pg_dumpall -U postgres >/backup/backup.sql
+root@f35990159916:/# ls -lah /backup
+total 16K
+drwxr-xr-x 2 root root 4.0K May 29 15:12 .
+drwxr-xr-x 1 root root 4.0K May 29 13:28 ..
+-rw-r--r-- 1 root root 7.0K May 29 15:12 backup.sql
+root@f35990159916:/# head /backup/backup.sql
+--
+-- PostgreSQL database cluster dump
+--
+
+SET default_transaction_read_only = off;
+
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+
+--
+root@f35990159916:/# exit
+exit
+$ sudo docker compose ls
+NAME                STATUS              CONFIG FILES
+06-db-02-sql        running(2)          /home/vagrant/devops-netology/06-db-02-sql/docker-compose.yml
+$ sudo docker compose down
+[+] Running 0/1
+ ⠙ Container 06-db-02-sql-adminer-1  Stopping                                                                                   0.2s
+[+] Running 1/1miner-1 exited with code 0
+ ⠿ Container 06-db-02-sql-adminer-1  Removed                                                                                    0.3s
+ ⠋ Container 06-db-02-sql-db-1       Stopping                                                                                   0.0s
+06-db-02-sql-db-1       | 2022-05-29 15:13:51.405 UTC [1] LOG:  received fast shutdown request
+06-db-02-sql-db-1       | 2022-05-29 15:13:51.408 UTC [1] LOG:  aborting any active transactions
+06-db-02-sql-db-1       | 2022-05-29 15:13:51.411 UTC [1] LOG:  background worker "logical replication launcher" (PID 31) exited with[+] Running 1/2
+[+] Running 3/3-db-02-sql-adminer-1  Removed                                                                                    0.3s
+ ⠿ Container 06-db-02-sql-adminer-1  Removed                                                                                    0.3s
+ ⠿ Container 06-db-02-sql-db-1       Removed                                                                                    0.3s
+ ⠿ Network 06-db-02-sql_default      Removed                                                                                    0.1s
+[1]+  Done                    sudo docker compose up
+$ sudo docker compose ls
+NAME                STATUS              CONFIG FILES
+$ sudo docker volume ls
+DRIVER    VOLUME NAME
+local     06-db-02-sql_backup
+local     06-db-02-sql_data
+$ sudo docker volume rm 06-db-02-sql_data
+06-db-02-sql_data
+$ sudo docker volume ls
+DRIVER    VOLUME NAME
+local     06-db-02-sql_backup
+$ sudo docker compose up &
+[1] 11441
+$ sudo docker volume ls
+DRIVER    VOLUME NAME
+local     06-db-02-sql_backup
+local     06-db-02-sql_data
+sudo docker exec -ti 06-db-02-sql-db-1 bash
+root@e955ab3b37fd:/# ls -lah /backup
+total 16K
+drwxr-xr-x 2 root root 4.0K May 29 15:12 .
+drwxr-xr-x 1 root root 4.0K May 29 15:16 ..
+-rw-r--r-- 1 root root 7.0K May 29 15:12 backup.sql
+root@e955ab3b37fd:/# psql -U postgres -f /backup/backup.sql
+SET
+SET
+SET
+...
+   // snip
+...
+COPY 5
+COPY 5
+ setval
+--------
+      5
+(1 row)
+
+ setval
+--------
+      5
+(1 row)
+
+ALTER TABLE
+ALTER TABLE
+CREATE INDEX
+ALTER TABLE
+GRANT
+GRANT
+GRANT
+```
