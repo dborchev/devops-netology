@@ -16,6 +16,12 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Need to create the DB first
+--
+CREATE DATABASE IF NOT EXISTS test_db;
+USE test_db;
+
+--
 -- Table structure for table `orders`
 --
 
