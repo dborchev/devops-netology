@@ -136,3 +136,43 @@ mysql> SELECT * FROM INFORMATION_SCHEMA.USER_ATTRIBUTES WHERE user="test";
 +------+------+---------------------------------------+
 1 row in set (0.01 sec)
 ```
+
+## Задача 3
+
+Установите профилирование `SET profiling = 1`. ✅
+Изучите вывод профилирования команд `SHOW PROFILES;`. ✅
+
+Исследуйте, какой `engine` используется в таблице БД `test_db` и **приведите в ответе**.
+
+```sql
+mysql> SELECT TABLE_NAME, ENGINE
+    ->    FROM information_schema.TABLES
+    ->    WHERE TABLE_SCHEMA='test_db'
+    -> ;
++------------+--------+
+| TABLE_NAME | ENGINE |
++------------+--------+
+| orders     | InnoDB |
++------------+--------+
+1 row in set (0.00 sec)
+```
+
+Измените `engine` и **приведите время выполнения и запрос на изменения из профайлера в ответе**:
+- на `MyISAM`
+- на `InnoDB`
+
+```sql
+mysql> SHOW PROFILES;
++----------+------------+-----------------------------------------------------------------------------------------------+
+| Query_ID | Duration   | Query                                                                                         |
++----------+------------+-----------------------------------------------------------------------------------------------+
+|        1 | 0.00036000 | mysql> SHOW PROFILES                                                                          |
+|        2 | 0.00063775 | Empty set, 1 warning (0.01 sec)                                                               |
+|        3 | 0.00245400 | SELECT TABLE_NAME, ENGINE
+   FROM information_schema.TABLES
+   WHERE TABLE_SCHEMA='test_db' |
+|        4 | 0.04578475 | ALTER TABLE orders ENGINE MyISAM                                                              |
+|        5 | 0.02792300 | ALTER TABLE orders ENGINE InnoDB                                                              |
++----------+------------+-----------------------------------------------------------------------------------------------+
+5 rows in set, 1 warning (0.00 sec)
+```
