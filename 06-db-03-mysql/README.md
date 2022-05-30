@@ -96,3 +96,43 @@ mysql> SELECT COUNT(*) FROM orders WHERE price > 300;
 ```
 
 В следующих заданиях мы будем продолжать работу с данным контейнером.
+
+## Задача 2
+
+Создайте пользователя test в БД c паролем test-pass, используя:
+- плагин авторизации mysql_native_password
+- срок истечения пароля - 180 дней 
+- количество попыток авторизации - 3 
+- максимальное количество запросов в час - 100
+- аттрибуты пользователя:
+    - Фамилия "Pretty"
+    - Имя "James"
+
+```sql
+CREATE USER 'test' 
+    IDENTIFIED WITH mysql_native_password BY 'test-pass'
+    WITH MAX_QUERIES_PER_HOUR 100
+    PASSWORD EXPIRE INTERVAL 180 DAY
+    FAILED_LOGIN_ATTEMPTS 3
+    ATTRIBUTE '{"fname": "James", "lname": "Pretty"}'
+;
+```
+
+Предоставьте привелегии пользователю `test` на операции SELECT базы `test_db`.
+
+```sql
+GRANT SELECT on test_db.* TO 'test';
+```
+
+Используя таблицу INFORMATION_SCHEMA.USER_ATTRIBUTES получите данные по пользователю `test` и 
+**приведите в ответе к задаче**.
+
+```sql
+mysql> SELECT * FROM INFORMATION_SCHEMA.USER_ATTRIBUTES WHERE user="test";
++------+------+---------------------------------------+
+| USER | HOST | ATTRIBUTE                             |
++------+------+---------------------------------------+
+| test | %    | {"fname": "James", "lname": "Pretty"} |
++------+------+---------------------------------------+
+1 row in set (0.01 sec)
+```
