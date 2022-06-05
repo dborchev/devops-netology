@@ -1,0 +1,21 @@
+version: "3.4"
+
+services:
+  db:
+    image: postgres:13
+    ports:
+        - "5432:5432"
+    volumes:
+        - data:/var/lib/postgresql/data
+        - backup:/backup
+    environment:
+        POSTGRES_PASSWORD: PakledStrong
+  adminer:
+    image: adminer
+    depends_on:
+        - db
+    ports:
+        - "8080:8080"
+volumes:
+  data: {}
+  backup: {}
