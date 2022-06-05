@@ -26,7 +26,7 @@ SET default_table_access_method = heap;
 
 CREATE TABLE public.orders (
     id integer NOT NULL,
-    title character varying(80) NOT NULL,
+    title character varying(80) NOT NULL UNIQUE,
     price integer DEFAULT 0
 );
 
