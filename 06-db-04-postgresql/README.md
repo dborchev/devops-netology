@@ -229,3 +229,35 @@ CREATE TABLE orders_2 PARTITION OF orders
 ```
 
 в https://www.postgresql.org/docs/current/ddl-partitioning.html способ разедления через INHERIT с описанием CHECK, процедур вставки, или созданием правил (CREATE RULE). Много способов под разные ситуации.
+
+## Задача 4
+
+Используя утилиту `pg_dump` создайте бекап БД `test_database`.
+
+```bash
+root@7ff7ec0e64bc:/# pg_dump -h localhost -U postgres test_database > /backup/test_database_backup.sql
+```
+
+Как бы вы доработали бэкап-файл, чтобы добавить уникальность значения столбца `title` для таблиц `test_database`?
+
+```sql
+ CREATE TABLE public.orders (
+     id integer NOT NULL,
+     title character varying(80) NOT NULL UNIQUE,
+     price integer DEFAULT 0
+ );
+```
++ https://github.com/dborchev/devops-netology/commit/1a0410ba614626f0568ad37f6428da31cb83a8f8
+
+```sql
+test_database=# \d public.orders
+                                   Table "public.orders"
+ Column |         Type          | Collation | Nullable |              Default
+--------+-----------------------+-----------+----------+------------------------------------
+ id     | integer               |           | not null | nextval('orders_id_seq'::regclass)
+ title  | character varying(80) |           | not null |
+ price  | integer               |           |          | 0
+Indexes:
+    "orders_pkey" PRIMARY KEY, btree (id)
+    "orders_title_key" UNIQUE CONSTRAINT, btree (title)
+```
