@@ -146,3 +146,86 @@ test_database=# SELECT attname, avg_width FROM pg_stats
  title   |        16
 (1 row)
 ``` 
+
+## Задача 3
+
+>Архитектор и администратор БД выяснили, что ваша таблица orders разрослась до невиданных размеров и
+поиск по ней занимает долгое время. Вам, как успешному выпускнику курсов DevOps в нетологии предложили
+провести разбиение таблицы на 2 (шардировать на orders_1 - price>499 и orders_2 - price<=499).
+
+>Предложите SQL-транзакцию для проведения данной операции.
+
+```sql
+BEGIN;
+CREATE TABLE orders_1 (CHECK (price > 499)) INHERITS (orders);
+INSERT INTO orders_1
+  SELECT * FROM orders
+  WHERE price > 499
+;
+CREATE TABLE orders_2 (CHECK (price <= 499)) INHERITS (orders);
+INSERT INTO orders_2
+  SELECT * FROM orders
+  WHERE price <= 499
+;
+DELETE FROM ONLY orders;
+COMMIT;
+```
+
+
+```sql
+test_database=# \dtS+ orders*
+                              List of relations
+ Schema |  Name  | Type  |  Owner   | Persistence |    Size    | Description
+--------+--------+-------+----------+-------------+------------+-------------
+ public | orders | table | postgres | permanent   | 8192 bytes |
+(1 row)
+
+test_database=# BEGIN;
+CREATE TABLE orders_1 (CHECK (price > 499)) INHERITS (orders);
+INSERT INTO orders_1
+  SELECT * FROM orders
+  WHERE price > 499
+;
+CREATE TABLE orders_2 (CHECK (price <= 499)) INHERITS (orders);
+INSERT INTO orders_2
+  SELECT * FROM orders
+  WHERE price <= 499
+;
+DELETE FROM ONLY orders;
+COMMIT;
+BEGIN
+CREATE TABLE
+INSERT 0 3
+CREATE TABLE
+INSERT 0 5
+DELETE 8
+COMMIT
+test_database=# \dtS+ orders*
+                                    List of relations
+ Schema |   Name   | Type  |  Owner   | Persistence |    Size    | Description
+--------+----------+-------+----------+-------------+------------+-------------
+ public | orders   | table | postgres | permanent   | 8192 bytes |
+ public | orders_1 | table | postgres | permanent   | 8192 bytes |
+ public | orders_2 | table | postgres | permanent   | 8192 bytes |
+(3 rows)
+```
+
+>Можно ли было изначально исключить "ручное" разбиение при проектировании таблицы orders?
+
+Можно, описав разделение изначально, например
+
+```sql
+CREATE TABLE public.orders (
+    id integer NOT NULL,
+    title character varying(80) NOT NULL,
+    price integer DEFAULT 0
+) PARTITION BY RANGE (price);
+
+CREATE TABLE orders_2 PARTITION OF orders
+    FOR VALUES FROM (0) TO (499);
+
+CREATE TABLE orders_2 PARTITION OF orders
+    FOR VALUES FROM (500);
+```
+
+в https://www.postgresql.org/docs/current/ddl-partitioning.html способ разедления через INHERIT с описанием CHECK, процедур вставки, или созданием правил (CREATE RULE). Много способов под разные ситуации.
