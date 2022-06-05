@@ -14,17 +14,13 @@ USER 1234:1234
 
 WORKDIR /usr/share/elasticsearch
 
-RUN wget -q https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-${VER}-linux-x86_64.tar.gz && \
-    wget -q https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-${VER}-linux-x86_64.tar.gz.sha512 && \
+RUN wget -nv https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-${VER}-linux-x86_64.tar.gz && \
+    wget -nv https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-${VER}-linux-x86_64.tar.gz.sha512 && \
     shasum -a 512 -c elasticsearch-${VER}-linux-x86_64.tar.gz.sha512 && \
-    tar -xzf /tmp/elasticsearch-${VER}-linux-x86_64.tar.gz && \
-    cp -rp elasticsearch-${VER}/* ./ && \
-    rm -rf elasticsearch-${VER}
-
-COPY ./config/elasticsearch.yml /usr/share/elasticsearch/config/
-
-RUN sed -i "/node.name/c\node.name: netology_test" /usr/share/elasticsearch/config/elasticsearch.yml
-RUN sed -i "/path.data/c\path.data: /var/lib/elasticsearch" /usr/share/elasticsearch/config/elasticsearch.yml
+    tar -xzf elasticsearch-${VER}-linux-x86_64.tar.gz && \
+    mv elasticsearch-${VER}/* ./ && \
+    sed -i "/node.name/c\node.name: netology_test" /usr/share/elasticsearch/config/elasticsearch.yml && \
+    sed -i "/path.data/c\path.data: /var/lib/elasticsearch" /usr/share/elasticsearch/config/elasticsearch.yml
 
 EXPOSE 9200
 
