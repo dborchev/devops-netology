@@ -51,7 +51,7 @@ resource "aws_instance" "netology" {
   ami           = data.aws_ami.ubuntu.id
   instance_type = "t2.micro"
   availability_zone = "eu-west-1a"
-  monitoring = False
+  monitoring = "false"
 
   user_data = "apt-get -y update && apt-get -y install nginx"
 
