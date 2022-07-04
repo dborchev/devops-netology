@@ -55,12 +55,12 @@ resource "aws_instance" "netology" {
 
   user_data = "apt-get -y update && apt-get -y install nginx"
 
-  network_interface = {
+  network_interface {
     network_interface_id = aws_network_interface.netology_interface.id
     device_index = 0
   }
 
-  credit_specification = {
+  credit_specification {
     cpu_credits = "unlimited"
   }
 
