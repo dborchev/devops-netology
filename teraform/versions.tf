@@ -27,7 +27,7 @@ output "region" {
 }
 
 output "private_ip" {
-  value = aws_instance.netology.private_ip
+  value = aws_instance.netology[*].private_ip
 }
 
 output "subnet_id" {
