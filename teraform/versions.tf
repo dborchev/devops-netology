@@ -5,6 +5,13 @@ terraform {
       version = "~> 3.0"
     }
   }
+
+  backend "s3" {
+    bucket = "overdraft3-synopsis-monorail-enclose-numerator5"
+    key    = "terraform"
+    region = data.aws_region.current.name
+    dynamodb_table  = "twistable-threaten-villain-prepay4-excuse"
+  }
 }
 
 output "account_id" {
