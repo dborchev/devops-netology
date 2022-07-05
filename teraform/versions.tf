@@ -9,7 +9,7 @@ terraform {
   backend "s3" {
     bucket = "overdraft3-synopsis-monorail-enclose-numerator5"
     key    = "terraform"
-    region = "eu-west-1a"
+    region = "eu-west-1"
     dynamodb_table  = "twistable-threaten-villain-prepay4-excuse"
   }
 }
