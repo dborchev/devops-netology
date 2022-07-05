@@ -53,7 +53,7 @@ resource "aws_instance" "netology" {
   availability_zone = "eu-west-1a"
   monitoring = "false"
   count = terraform.workspace == "prod" ? 2 : 1
-  create_before_destroy = true
+
   user_data = "apt-get -y update && apt-get -y install nginx"
 
   network_interface {
@@ -68,6 +68,9 @@ resource "aws_instance" "netology" {
   tags = {
     Name = "07-terraform-${terraform.workspace}-${count.index}"
     project = "netology"
+  }
+  lifecycle {
+    create_before_destroy = true
   }
 }
 
