@@ -1,0 +1,27 @@
+version: 3
+projects:
+- dir: .
+  workspace: stage
+  execution_order_group: 1
+  workflow: custom1
+  autoplan:
+    when_modified: ["*.tf"]
+    enabled: true
+- dir: .
+  workspace: prod
+  execution_order_group: 2
+  workflow: custom1
+  autoplan:
+    when_modified: ["*.tf"]
+    enabled: true
+
+workflows:
+  custom1:
+    plan:
+      steps:
+        - init
+        - plan:
+            extra_args: ["-lock", "false"]
+    apply:
+      steps:
+        - apply
