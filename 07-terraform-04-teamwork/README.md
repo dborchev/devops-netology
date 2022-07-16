@@ -12,3 +12,10 @@ https://github.com/netology-code/virt-homeworks/blob/virt-11/07-terraform-04-tea
 
 В качестве результата задания приложите снимок экрана с успешным применением конфигурации.
 ![screenshots/terraform-cl;oud-plan-apply.png](screenshots/terraform-cl;oud-plan-apply.png)
+
+
+## Задача 2. Написать серверный конфиг для атлантиса. 
+1. Создай `server.yaml`
+   1. https://github.com/dborchev/devops-netology/blob/main/teraform/server.yaml
+2. Создай `atlantis.yaml`
+   1. https://github.com/dborchev/devops-netology/blob/main/teraform/atlantis.yaml
