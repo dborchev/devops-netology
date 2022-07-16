@@ -51,13 +51,16 @@ resource "aws_network_interface" "netology_interface" {
 
 
 
-resource "aws_instance" "netology" {
+module "ec2_instance" {
+  source  = "terraform-aws-modules/ec2-instance/aws"
+  version = "~> 3.0"
+
   ami           = data.aws_ami.ubuntu.id
   instance_type = terraform.workspace == "prod" ? "t2.micro" : "t1.micro"
   availability_zone = "eu-west-1a"
   monitoring = "false"
   count = terraform.workspace == "prod" ? 2 : 1
-
+  name = "07-terraform-${terraform.workspace}-${count.index}"
   user_data = "apt-get -y update && apt-get -y install nginx"
 
   network_interface {
@@ -72,9 +75,6 @@ resource "aws_instance" "netology" {
   tags = {
     Name = "07-terraform-${terraform.workspace}-${count.index}"
     project = "netology"
-  }
-  lifecycle {
-    create_before_destroy = true
   }
 }
 
