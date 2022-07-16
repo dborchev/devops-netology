@@ -34,6 +34,10 @@ resource "aws_subnet" "netology_subnet" {
     Name = "tf-example"
     project = "netology"
   }
+    filter {
+    name   = "architecture"
+    values = ["x86_64"]
+  }
 }
 
 resource "aws_network_interface" "netology_interface" {
